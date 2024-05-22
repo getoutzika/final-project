@@ -1,0 +1,73 @@
+
+----------------------------------------------------------------------------------
+1) Analise cinética - analise temporal da agressividade do virus nas variantes em estudo POL/UGD
+----------------------------------------------------------------------------------
+
+ZIKV_POL_24hpi
+ZIKV_UGD_24hpi
+CTRL_24hpi
+
+ZIKV_POL_48hpi
+ZIKV_UGD_48hpi
+CTRL_48hpi
+
+ZIKV_POL_72hpi
+ZIKV_UGD_72hpi
+CTRL_72hpi
+
+- Diagrama de Venn
+
+ZIKV_UGD_vs_CTRL_72hpi [intercção] ZIKV_POL_vs_CTRL_72hpi, Padj<0.05
+
+- Volcano plot
+
+ZIKV_UGD_72hpi vs CTRL_72hpi, Padj<0.05
+ZIKV_POL_72hpi vs CTRL_72hpi, Padj<0.05
+
+
+
+?????????? - analise de agrupamento hierarquico dos genes e amostras ??????????
+
+----------------------------------------------------------------------------------
+Analise das vias de expressão mais ativadas e quais os genes mais evidentes (basicamente o t3)
+----------------------------------------------------------------------------------
+- Foca no Polones
+- extrair niveis de expressão nas faixas de horário 24/48/72 - tabela com fold changed
+- rodar código Phython e construir e analizar uma rede bipartida de vias de expressão 
+- importar no cytoscape
+- analise de centralidade, hubs e agrupamento (cluster)
+
+
+----------------------------------------------------------------------------------
+Buscar relação entre os achados anteriores e o desenvolvimento da sindrome de microcefalia 
+----------------------------------------------------------------------------------
+- criar redes de PPI usando String + Neo4J + Cytoscape (basicamente o t2)
+- juntar pathways de interesse para nossa pesquisa (microcefalia, ...)
+
+
+
+
+
+
+└── project2
+    |
+    ├── README.md  <- texto da Entrega 2 do projeto
+    │
+    ├── data
+    │   ├── external       <- dados de terceiros em formato usado para entrada na transformação
+    │   ├── interim        <- dados intermediários, e.g., resultado de transformação
+    │   ├── processed      <- dados finais usados para a publicação
+    │   └── raw            <- dados originais sem modificações
+    │
+    ├── pipelines
+    │   ├── notebooks      <- Jupyter notebooks ou equivalentes
+    │   └── workflows      <- workflows Orange ou equivalentes 
+    |
+    ├── src                <- fonte em linguagem de programação ou sistema (e.g., Orange, Cytoscape)
+    │   └── README.md      <- instruções básicas de instalação/execução
+    │
+    └── assets             <- mídias usadas no projeto
+        ├── images  <- imagens usadas no texto do README.md
+        └── slides  <- slides da prévia (em PDF)
+
+
