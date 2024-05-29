@@ -1,14 +1,14 @@
-# Projeto: Zika vírus e suas implicações na saúde pública brasileira
+# Projeto: Como o Zika altera a fisiologia fetal desencadeando a microcefalia
 
-# Project: Zika virus and its implications on brazilian public health
+# Project: How Zika alters fetal physiology, triggering microcephaly
 
 # Equipe
 
-> | Nome  | RA (e-mail) | Especialização|
-> |--|--|--|
-> | Bruno Brito Pereira da Silva | b213947 (@dac.unicamp.br) | Biologia |
-> | Márcio Silva Cruz | m290232 (@g.unicamp.br) | Computação |
-> | Rafael Simionato  | r066505 (@g.unicamp.br) | Computação |
+| Nome  | RA (e-mail) | Especialização|
+|--|--|--|
+| Bruno Brito Pereira da Silva | b213947 (@dac.unicamp.br) | Biologia |
+| Márcio Silva Cruz | m290232 (@g.unicamp.br) | Computação |
+| Rafael Simionato  | r066505 (@g.unicamp.br) | Computação |
 
 # Apresentação
 
@@ -16,8 +16,8 @@ O presente projeto foi originado no contexto das atividades da disciplina de pó
 
 # Descrição Resumida do Projeto
 
-Arboviroses são doenças causadas por vírus transmitidos por artrópodes. No Brasil existem mais de 200 arboviroses diferentes, sendo que 40 dessas doenças causam maiores complicações em seres humanos (4) e são classificadas como arboviroses emergentes, pois são causadas por vírus ainda restritos a determinadas regiões específicas do país.
+A epidemia de Zika vírus que acometeu o Brasil na década passada mostrou como os vírus emergentes podem desencadear problemas profundos na saúde pública. Atualmente o Brasil passa por um surto de um vírus emergente, o oropouche e uma epidemia de dengue. A recorrência de eventos com estes, evidenciam a importância de entendermos os mecanismos que os arbovírus usam para causarem tais doenças.
 
-O Zika vírus (ZIKV), detectado no Brasil em 2014 porém ainda sem causar grandes impactos, emergiu em 2015 se espalhando pelo país e causando uma série de complicações nas pessoas infectadas por ele. Em sua maioria complicações neurológicas. O principal problema em adultos foi a síndrome de Guillain Barré e em neonatos, a microcefalia. Ambas as manifestações clínicas são comprometedoras do ponto de vista do bem estar humano pois deixam sequelas irreversíveis afetando de forma significativa a vida da pessoa acometida por tais síndromes e o sistema público de saúde, uma vez que se torna necessário a criação de centros de reabilitação.
+Em relação ao Zika vírus (ZIKV), vimos como ele causou problemas no Brasil, não só em adultos com a síndrome de Guillain Barré, mas também em neonatos com microcefalia.
 
-Visando-se evitar situações adversas como a pandemia da Sars-Cov-2 (2020) e a epidemia de Dengue (DENVs) em desenvolvimento atualmente no Brasil, observa-se a necessidade de se analisar em retrospecto a epidemia de ZIKV (2015-2017) dada a riqueza de dados de ômicas e o fato de essa epidemia ter causado grande impacto na saúde pública brasileira. Nesse projeto pretendemos avaliar a incidência de síndrome de Guillain Barré e microcefalia com relação às regiões administrativas do Brasil tal como avaliar como a interação patógeno-hospedeiro altera a expressão genética e como se desenvolve o quadro patológico decorrente da infecção viral.
+O foco deste projeto compreende analisar a microcefalia, visto que é algo que afeta dois organismos, sendo um desenvolvido (a mulher) e o outro em desenvolvimento (o feto). Para isso, analisamos dados de RNAseq de células tronco neuronais com o intuito de avaliar a expressão diferencial de genes na presença de duas linhagens de ZIKV, a saber: de origem Polinésio e Uganda.
