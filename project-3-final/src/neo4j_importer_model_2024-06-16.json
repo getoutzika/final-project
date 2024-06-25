@@ -1,0 +1,471 @@
+{
+  "version": "1.4.0",
+  "graph": {
+    "nodes": [
+      {
+        "id": "n0",
+        "position": {
+          "x": -64,
+          "y": -7
+        },
+        "caption": "Protein"
+      },
+      {
+        "id": "n1",
+        "position": {
+          "x": -64,
+          "y": -154
+        },
+        "caption": "Protein"
+      }
+    ],
+    "relationships": [
+      {
+        "id": "n0",
+        "type": "InteractsWith",
+        "fromId": "n0",
+        "toId": "n0"
+      },
+      {
+        "id": "n1",
+        "type": "InteractsWith",
+        "fromId": "n1",
+        "toId": "n1"
+      }
+    ]
+  },
+  "dataModel": {
+    "version": "1.4.0-beta.0",
+    "graphSchemaRepresentation": {
+      "version": "1.0.0",
+      "graphSchema": {
+        "nodeLabels": [
+          {
+            "$id": "nl:n0",
+            "token": "Protein",
+            "properties": [
+              {
+                "$id": "p:2",
+                "token": "Name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$id": "p:3",
+                "token": "MicrocephalyRelated",
+                "type": {
+                  "type": "boolean"
+                },
+                "nullable": true
+              }
+            ]
+          },
+          {
+            "$id": "nl:n1",
+            "token": "Protein",
+            "properties": [
+              {
+                "$id": "p:1",
+                "token": "Name",
+                "type": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              {
+                "$id": "p:7",
+                "token": "Log2FoldChange",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": true
+              }
+            ]
+          }
+        ],
+        "relationshipTypes": [
+          {
+            "$id": "rt:n0",
+            "token": "InteractsWith",
+            "properties": [
+              {
+                "$id": "p:6",
+                "token": "combined_score_m",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": true
+              }
+            ]
+          },
+          {
+            "$id": "rt:n1",
+            "token": "InteractsWith",
+            "properties": [
+              {
+                "$id": "p:8",
+                "token": "combined_score",
+                "type": {
+                  "type": "float"
+                },
+                "nullable": true
+              }
+            ]
+          }
+        ],
+        "nodeObjectTypes": [
+          {
+            "$id": "n:n0",
+            "labels": [
+              {
+                "$ref": "#nl:n0"
+              }
+            ]
+          },
+          {
+            "$id": "n:n1",
+            "labels": [
+              {
+                "$ref": "#nl:n1"
+              }
+            ]
+          }
+        ],
+        "relationshipObjectTypes": [
+          {
+            "$id": "r:n0",
+            "type": {
+              "$ref": "#rt:n0"
+            },
+            "from": {
+              "$ref": "#n:n0"
+            },
+            "to": {
+              "$ref": "#n:n0"
+            }
+          },
+          {
+            "$id": "r:n1",
+            "type": {
+              "$ref": "#rt:n1"
+            },
+            "from": {
+              "$ref": "#n:n1"
+            },
+            "to": {
+              "$ref": "#n:n1"
+            }
+          }
+        ],
+        "constraints": [
+          {
+            "$id": "c:1",
+            "name": "Name_Protein_uniq",
+            "constraintType": "uniqueness",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:n0"
+            },
+            "properties": [
+              {
+                "$ref": "#p:2"
+              }
+            ]
+          },
+          {
+            "$id": "c:2",
+            "name": "Name_Protein_uniq",
+            "constraintType": "uniqueness",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:n1"
+            },
+            "properties": [
+              {
+                "$ref": "#p:1"
+              }
+            ]
+          }
+        ],
+        "indexes": [
+          {
+            "$id": "i:1",
+            "name": "Name_Protein_uniq",
+            "indexType": "default",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:n0"
+            },
+            "properties": [
+              {
+                "$ref": "#p:2"
+              }
+            ]
+          },
+          {
+            "$id": "i:2",
+            "name": "Name_Protein_uniq",
+            "indexType": "default",
+            "entityType": "node",
+            "nodeLabel": {
+              "$ref": "#nl:n1"
+            },
+            "properties": [
+              {
+                "$ref": "#p:1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "graphSchemaExtensionsRepresentation": {
+      "nodeKeyProperties": [
+        {
+          "node": {
+            "$ref": "#n:n0"
+          },
+          "keyProperty": {
+            "$ref": "#p:2"
+          }
+        },
+        {
+          "node": {
+            "$ref": "#n:n1"
+          },
+          "keyProperty": {
+            "$ref": "#p:1"
+          }
+        }
+      ]
+    },
+    "graphMappingRepresentation": {
+      "dataSourceSchema": {
+        "type": "local/csv",
+        "tableSchemas": [
+          {
+            "$id": "t:1",
+            "name": "ZIKV_POL_vs_CTRL_72hpi-string_nodes-log2foldchange.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "GeneName",
+                "type": "string",
+                "sample": "ABCA4",
+                "include": true
+              },
+              {
+                "name": "Log2FoldChange",
+                "type": "float",
+                "sample": "1.198",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:2",
+            "name": "Microcephaly_HP_0000252-string_interactions.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "GeneName1",
+                "type": "string",
+                "sample": "ACTG2",
+                "include": true
+              },
+              {
+                "name": "GeneName2",
+                "type": "string",
+                "sample": "TUBA1A",
+                "include": true
+              },
+              {
+                "name": "experimentally",
+                "type": "float",
+                "sample": "0.136",
+                "include": true
+              },
+              {
+                "name": "database",
+                "type": "float",
+                "sample": "0",
+                "include": true
+              },
+              {
+                "name": "textmining",
+                "type": "float",
+                "sample": "0.19",
+                "include": true
+              },
+              {
+                "name": "combined_score",
+                "type": "float",
+                "sample": "0.411",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:3",
+            "name": "Microcephaly_HP_0000252-string_nodes_microcephalyrelated.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "MicrocephalyRelated",
+                "type": "boolean",
+                "sample": "True",
+                "include": true
+              },
+              {
+                "name": "GeneName",
+                "type": "string",
+                "sample": "ACTG2",
+                "include": true
+              }
+            ]
+          },
+          {
+            "$id": "t:4",
+            "name": "ZIKV_POL_vs_CTRL_72hpi-string_interactions.csv",
+            "expanded": true,
+            "fields": [
+              {
+                "name": "GeneName1",
+                "type": "string",
+                "sample": "ABCA4",
+                "include": true
+              },
+              {
+                "name": "GeneName2",
+                "type": "string",
+                "sample": "GNAT1",
+                "include": true
+              },
+              {
+                "name": "experimentally",
+                "type": "float",
+                "sample": "0.045",
+                "include": true
+              },
+              {
+                "name": "database",
+                "type": "float",
+                "sample": "0",
+                "include": true
+              },
+              {
+                "name": "textmining",
+                "type": "float",
+                "sample": "0.411",
+                "include": true
+              },
+              {
+                "name": "combined_score",
+                "type": "float",
+                "sample": "0.466",
+                "include": true
+              }
+            ]
+          }
+        ]
+      },
+      "nodeMappings": [
+        {
+          "node": {
+            "$ref": "#n:n1"
+          },
+          "tableSchema": {
+            "$ref": "#t:1"
+          },
+          "propertyMappings": [
+            {
+              "property": {
+                "$ref": "#p:1"
+              },
+              "fieldName": "GeneName"
+            },
+            {
+              "property": {
+                "$ref": "#p:7"
+              },
+              "fieldName": "Log2FoldChange"
+            }
+          ]
+        },
+        {
+          "node": {
+            "$ref": "#n:n0"
+          },
+          "tableSchema": {
+            "$ref": "#t:3"
+          },
+          "propertyMappings": [
+            {
+              "property": {
+                "$ref": "#p:2"
+              },
+              "fieldName": "GeneName"
+            },
+            {
+              "property": {
+                "$ref": "#p:3"
+              },
+              "fieldName": "MicrocephalyRelated"
+            }
+          ]
+        }
+      ],
+      "relationshipMappings": [
+        {
+          "relationship": {
+            "$ref": "#r:n1"
+          },
+          "tableSchema": {
+            "$ref": "#t:4"
+          },
+          "propertyMappings": [
+            {
+              "property": {
+                "$ref": "#p:8"
+              },
+              "fieldName": "combined_score"
+            }
+          ],
+          "fromMapping": {
+            "fieldName": "GeneName1"
+          },
+          "toMapping": {
+            "fieldName": "GeneName2"
+          }
+        },
+        {
+          "relationship": {
+            "$ref": "#r:n0"
+          },
+          "tableSchema": {
+            "$ref": "#t:2"
+          },
+          "propertyMappings": [
+            {
+              "property": {
+                "$ref": "#p:6"
+              },
+              "fieldName": "combined_score"
+            }
+          ],
+          "fromMapping": {
+            "fieldName": "GeneName1"
+          },
+          "toMapping": {
+            "fieldName": "GeneName2"
+          }
+        }
+      ]
+    },
+    "configurations": {
+      "idsToIgnore": []
+    }
+  }
+}

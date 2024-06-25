@@ -1,0 +1,162 @@
+
+
+140 + 10 + 1 + 50588 = 50739
+99 + 30 + 0 + 50610 = 50739
+18135 + 770 + 109 + 31725 = 50739
+
+
+
+Após fazer a análise cinética no Geo, foco na variante Polinésia Francesa de 72hpi
+
+Baixa os arquivos com os genes e expressão up e down
+	- servirá para colorir (up:vermelho e down:azul) os nós futuramente no Cytoscape
+	../data/raw/ZIKV_all_genes_72hpi.tsv
+	../data/raw/ZIKV_POL_vs_CTRL_72hpi.tsv
+
+Para a analise de vias enriquecias executar o Jupyter-notebook disponível em 
+
+No código Python Tratamento dos dados para gerar uma lista com os nomes dos genes diferencialmente expressos:
+código Python : notebook ?
+	../data/interim/ZIKV_POL_vs_CTRL_72hpi_genes.tsv
+	../data/interim/ZIKV_POL_vs_CTRL_72hpi_genes-names-only.tsv
+
+De posse de um arquivo com os nomes dos genes diferencialmente expressos, foi utilizada o site String na funcionalidade de busca de multiplas proteínas por nome Multiple Proteins by Names / Identifiers (https://string-db.org/cgi/input?sessionId=b83UhkDkzkcG&input_page_active_form=multiple_identifiers )  para contruir uma rede de interação proteica com as seguintes caracteristias
+	network type: full STRING network
+	active interaction sources: textmining, experiments and database
+	meaning of network edges: confidence
+	minimum required interaction score: medium confidence (0.400)
+	
+number of nodes:	582
+number of edges:	4389
+	../data/raw/ZIKV_POL_vs_CTRL_72hpi-string_node_degrees-582nodes_full_text_exp_db_0400.tsv
+	../data/raw/ZIKV_POL_vs_CTRL_72hpi-string_interactions_short-582nodes_full_text_exp_db_0400.tsv
+
+		ZIKV_POL_vs_CTRL_72hpi-582nodes_full_exp_db_0400-string_interactions_short
+		ZIKV_POL_vs_CTRL_72hpi-582nodes_full_exp_db_0400-string_node_degrees
+
+No Orange, foi criado um fluxo de trabalho para juntar ao nós da rede então criada, o valor da expressão diferencial (log2FoldChange) relativa a cada gene estudado nas amostras extraídas do GEO. E por fim foram gerados dois arquivos para criar uma rede no Neo4J.
+
+	../data/interim/ZIKV_POL_vs_CTRL_72hpi-string_nodes-log2foldchange.csv
+	../data/interim/ZIKV_POL_vs_CTRL_72hpi-string_interactions.csv
+
+Para a rede de genes associados à microcefalia, buscamos no website String, buscar por microcefalia na funcionalidade de busca de Geneset by Pathway / Process / Disease / Publication (https://string-db.org/cgi/input?sessionId=b83UhkDkzkcG&input_page_active_form=single_term) onde foram retornadas diversas posibilidades de bancos de dados. Escolhemos:
+
+Microcephaly [HP:0000252] - Human genes for microcephaly
+https://monarchinitiative.org/HP:0000252
+number of nodes:	1080
+number of edges:	13368
+	../data/raw/Microcephaly-HP_0000252-string_node_degrees-1080nodes.tsv
+
+No Orange, foi criado um fluxo de trabalho para filtrar os genes comuns à primeira rede criada e à segunda de forma a reduzir o tamanho da rede de genes relacionados à doença. 
+
+Microcephaly_HP_0000252-string_nodes-vs-ZIKV_POL_vs_CTRL_72hpi-string_nodes.???
+
+Buscar no String a rede reduzida 
+	../data/raw/Microcephaly-HP_0000252-string_node_degrees-1080nodes.tsv
+
+number of nodes:	27
+number of edges:	41
+default config
+	../data/raw/Microcephaly-HP_0000252-string_interactions_short-27nodes_default_config.tsv
+	../data/raw/Microcephaly-HP_0000252-string_node_degrees-27nodes_default_config.tsv
+
+Em seguida no Orange, foi criado um fluxo de trabalho para adicionar uma feature informativa para discriminar os nós associados à microcefalia
+onde por fim divemos os arquivos criara a rede no Neo4J.
+	../data/raw/Microcephaly-HP_0000252-string_node_degrees-27nodes_default_config.tsv
+
+Microcephaly_HP_0000252-string_interactions.csv
+Microcephaly_HP_0000252-string_nodes_microcephalyrelated.csv
+
+
+- importar a rede no Neo4J
+
+Usando o modelo lógico disponivel em neo4j_importer_model_2024-06-16.json e os arquivos gerados anteriormente, foi gerada uma rede com
+Nodes (582)
+Relationships (4.389)
+
+MATCH (p1)-[r]-(p2) 
+RETURN p1, r, p2
+
+	Nodes (398)
+	Relationships (2.500)
+
+		neo4j-visualisation-nodes(398)-relationships(2500)
+
+MATCH (p1)-[r]-(p2) 
+WHERE p2.MicrocephalyRelated IS NOT NULL
+RETURN p1, r, p2
+
+	Nodes (233)
+	Relationships (667)
+		neo4j-visualisation-nodes(233)-relationships(667)
+
+MATCH (p1)-[r]-(p2)
+WHERE p2.MicrocephalyRelated IS NOT NULL
+RETURN p1.Name, p1.Log2FoldChange, p1.MicrocephalyRelated, r.combined_score, p2.Name, p2.Log2FoldChange, p2.MicrocephalyRelated
+
+../data/processed/neo4j-nodes(233)-relationships(667)-query_table_data.csv
+../data/processed/neo4j-nodes(233)-relationships(667)-visualisation.png
+../data/processed/neo4j-nodes(398)-relationships(2500)-visualisation.png
+
+
+
+
+
+
+
+
+MATCH (n)-[e]->(m) DELETE e
+MATCH (n) DELETE n
+
+MATCH (p1) OPTIONAL MATCH (p1)-[r]-(p2)
+RETURN p1.Name, p1.Log2FoldChange, r.database, r.combined_score, r.experimentally_determined_interaction, p2.Name, p2.Log2FoldChange
+
+
+MATCH (p1)-[i]->(p2)
+RETURN p1, i , p2
+
+MATCH (p1)-[i]->(p2)
+RETURN p1.Name, p1.Log2FoldChange, i.database, i.combined_score, i.experimentally_determined_interaction, p2.Name, p2.Log2FoldChange
+
+
+MATCH (p1)-[i]->(p2)
+RETURN p1.Name, p1.Log2FoldChange, p1.MicrocephalyRelated, i.database, i.combined_score, i.experimentally_determined_interaction, p2.Name, p2.Log2FoldChange, p2.MicrocephalyRelated
+
+MATCH (p1)-[i]->(p2) WHERE p2.MicrocephalyRelated=True
+RETURN p1.Name, p1.Log2FoldChange, p1.MicrocephalyRelated, i.database, i.combined_score, i.experimentally_determined_interaction, p2.Name, p2.Log2FoldChange, p2.MicrocephalyRelated
+
+Log2FoldChange
+MicrocephalyRelated
+
+combined_score
+ (667)
+
+
+
+[18:42] Rafael Simionato
+Moskito + MO -> Gas6 -> GEO (analise cinética)
+ 
+	Apresenta novamente a analise cinética comparando Uganda e Polinésia Francesa
+
+	Resposta de questão de pesquisa (n)
+ 
+	Foco na variante Polinésia Francesa 72h (770+109 genes com expressão diferencial)
+ 
+-> Python (rede de vias enriquecidas)
+ 
+	Apresenta a Rede de vias enriquecidas
+
+	 - cor das vias ???
+
+	 - cor dos nós up e down ???
+ 
+-> Python (data wrangling - limpeza/transformação/junção) -> String -> Orange (data wrangling - limpeza/transformação/junção) -> rede 1 (582 genes com expressão diferencial)
+ 
+-> Pathway de Microcefalia, onde buscar? -> String -> rede muito grande (com x nós e n arestas) -> Orange (data wrangling - intercecção entre as redes listas de genes) -> 27 genes -> String
+ 
+-> Neo4j (rede 1 + rede 3) -> rede PPI muito grande -> estratégia: extrair uma subrede com ao menos um dos nós relacionados com a patologia -> rede PPI boa para analise -> Cytoscape -> analise biológica
+
+
+
+
+
